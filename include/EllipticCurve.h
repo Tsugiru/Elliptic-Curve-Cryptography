@@ -1,55 +1,46 @@
+#pragma once
+
 #include <boost/multiprecision/cpp_int.hpp>
 #include <string>
-#include <map>
-#include <utility>
 
 using namespace boost::multiprecision;
 
-class EllipticCurve {
-	
-public:
-	int512_t p; // Finite field 
-	int512_t a; // Elliptic Curve parameter 1
-	int512_t b; // Elliptic Curve parameter 2
+struct Point {
+    const cpp_int x;
+    const cpp_int y;
+	Point() : x(0), y(0) {}
+	Point(const std::string& _x, const std::string& _y) : x(_x), y(_y) {}
+	Point(const cpp_int& _x, const cpp_int& _y) : x(_x), y(_y) {}
+	Point(const Point & p) : x(p.x), y(p.y) {}
+	bool operator==(const Point& rhs) const { return x == rhs.x && y == rhs.y; }
 
-	std::pair<int512_t, int512_t> g; // Generator point
-
-	int512_t n; //Subgroup order
-	int512_t h; //Subgroup cofactor
-
-	//Constructor
-	EllipticCurve(int512_t p, int512_t a, int512_t b, std::pair<int512_t, int512_t, g, int512_t n, int512_t h){
-		this->p = p;
-		this->a = a;
-		this->g = g;
-		this->b = b;
-		this->n = n;
-		this->h = h;
-	}
-
-	// Copy Constructor
-	EllipticCurve(const EllipticCurve &c){
-		this->p = c.p;
-		this->a = c.a;
-		this->g = c.g;
-		this->b = c.b;
-		this->n = c.n;
-		this->h = c.h;
-	}
+    friend std::ostream & operator<<(std::ostream& os, const Point& p);
 };
 
+std::ostream& operator<<(std::ostream& os, const Point& p) {
+    os << "(" << p.x << ", " << p.y << ")";
+    return os;
+}
 
+const Point pointAtInfinity(-1, -1);
 
-EllipticCurve t1 = EllipticCurve(
-		0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f,
-		0,
-		7,
-		std::pair<int512_t, int512_t>(0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798,
-			0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8),
-		0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141,
-		0x1
-);
+class EllipticCurve {
+   public:
+    const cpp_int p;  // Finite field
+    const cpp_int a;  // Elliptic Curve parameter 1
+    const cpp_int b;  // Elliptic Curve parameter 2
 
+    const Point g;  // Generator point
 
-std::map<std::string, EllipticCurve> StandardEllipticCurves;
-StandardEllipticCurves.insert(std::pair<std::string, EllipticCurve>("secp256k1", t1));
+    const cpp_int n;  //Subgroup order
+    const cpp_int h;  //Subgroup cofactor
+
+    //Constructor
+    EllipticCurve(const std::string& _p, const std::string& _a, const std::string& _b,
+                  const Point& _g, const std::string& _n, const std::string& _h)
+        : p(_p), a(_a), b(_b), g(_g), n(_n), h(_h) {}
+
+    // Copy Constructor
+    EllipticCurve(const EllipticCurve& c)
+        : p(c.p), a(c.a), g(c.g), b(c.b), n(c.n), h(c.h) {}
+};
