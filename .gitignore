@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 .vscode/
 **/*.o
 bin/
+=======
+bin/
+.vscode/
+**/*.o
+**/*.swp
+>>>>>>> add public and private key generation

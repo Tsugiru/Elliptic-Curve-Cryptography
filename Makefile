@@ -2,7 +2,7 @@ CC=g++
 INCLUDEDIR=./include
 SOURCEDIR=./src
 BINDIR=./bin
-CFLAGS=-I$(INCLUDEDIR) -std=c++11
+CFLAGS=-I$(INCLUDEDIR) -std=c++17
 
 OBJFILES= $(patsubst $(SOURCEDIR)/%.cpp, $(SOURCEDIR)/%.o, $(wildcard $(SOURCEDIR)/*.cpp))
 DEPS= $(wildcard $(INCLUDEDIR)/*.h)
