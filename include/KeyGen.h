@@ -1,5 +1,6 @@
 #include <EccCalculator.h>
 #include <boost/random.hpp>
+#include <memory>
 
 using namespace boost::random;
 

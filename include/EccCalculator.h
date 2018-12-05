@@ -1,6 +1,7 @@
 #pragma once
 
 #include <EllipticCurve.h>
+#include <memory>
 #include <InverseMod.h>
 
 class EccCalculator {

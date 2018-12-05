@@ -18,3 +18,4 @@ INCLUDEPATH += include/
 DESTDIR = bin/
 
 CONFIG += qt debug
+CONFIG += c++14

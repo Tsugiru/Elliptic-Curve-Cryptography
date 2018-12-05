@@ -42,5 +42,5 @@ class EllipticCurve {
 
     // Copy Constructor
     EllipticCurve(const EllipticCurve& c)
-        : p(c.p), a(c.a), g(c.g), b(c.b), n(c.n), h(c.h) {}
+        : p(c.p), a(c.a), b(c.b), g(c.g), n(c.n), h(c.h) {}
 };
